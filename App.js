@@ -16,23 +16,39 @@ import Header from './components/Header/Header';
 
 const EnteryPoint = () => {
   const count = useSelector((state) => state.counter.value)
+  const isLight = useSelector((state) => state.theme.isDark)
   const dispatch = useDispatch()
 
   return (
     <View style={{flex:1}}>
       <Header />
-      <View style={styles.container}>
-        <View style={styles.watch}>
-        <View style={styles.countContainer}>
-        <Text style={styles.count}>
+      <View style={[styles.container,{
+        backgroundColor:isLight?'pink':'#180000',
+      }]}>
+        <View style={[styles.watch,
+        {
+          backgroundColor:isLight?'black':'green',
+        }]}>
+        <View style={[styles.countContainer,{
+          backgroundColor: isLight?'#2B2A33':'#90EE90',
+        }]}>
+        <Text style={[styles.count,{
+          color:isLight?'white':'black',
+        }]}>
           {count}
         </Text>
         </View>
         </View>
-        <View style={styles.watchBtn}>
-        <TouchableOpacity style={styles.increase} onPress={()=>dispatch(increment())}>
+        <View style={[styles.watchBtn,{
+        backgroundColor:isLight?'black':'green',
+        }]}>
+        <TouchableOpacity style={[styles.increase,{
+          backgroundColor:isLight?'white':'pink',
+        }]} onPress={()=>dispatch(increment())}>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.reset} onPress={()=>dispatch(reset())}>
+        <TouchableOpacity style={[styles.reset,{
+          backgroundColor:isLight?'red':'#000080',
+        }]} onPress={()=>dispatch(reset())}>
         </TouchableOpacity>
         </View>
       </View>
@@ -54,30 +70,26 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor:'pink',
     flex:1,
     justifyContent:'center'
   },
   watch:{
-    backgroundColor:'black',
-    width:'60%',
+    width:250,
     alignSelf:'center',
     borderRadius:120,
-    height:'29%',
+    height:250,
     justifyContent:'center'
   },
   watchBtn:{
-    backgroundColor:'black',
-    width:'60%',
+    width:250,
     alignSelf:'center',
     borderRadius:50,
-    height:'10%',
+    height:80,
     marginTop:-20,
     flexDirection:'row-reverse',
     justifyContent:'space-between'
   },
   reset:{
-    backgroundColor:'red',
     height:60,
     width:60,
     borderRadius:50,
@@ -86,7 +98,6 @@ const styles = StyleSheet.create({
     marginHorizontal:10
   },
   increase:{
-    backgroundColor:'white',
     height:60,
     width:'50%',
     borderRadius:50,
@@ -95,13 +106,11 @@ const styles = StyleSheet.create({
     marginRight:10
   },
   countContainer:{
-    backgroundColor:'#2B2A33',
     width:'60%',
     alignSelf:'center',
     borderRadius:8
   },
   count:{
-    color:'white',
     textAlign:'center',
     fontSize:30,
     fontWeight:'bold',

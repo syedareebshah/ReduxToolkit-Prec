@@ -5,14 +5,24 @@ import {
   View,
   StyleSheet
 } from 'react-native';
-
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeTheme } from '../../store/slices/themeSlice'
 
 
 const Header = () => {
+  const isLight = useSelector((state) => state.theme.isDark)
+    console.log(isLight);
+  const dispatch = useDispatch()
   return (
-    <View style={styles.container}>
-    <Text style={styles.text}>Tasbeeh Counter</Text>
-    <TouchableOpacity style={styles.theme}>
+    <View style={[styles.container,{
+      backgroundColor: isLight? 'black':'pink',
+    }]}>
+    <Text style={[styles.text,
+      {color: isLight? 'white':'black'},
+    ]}>Tasbeeh Counter</Text>
+    <TouchableOpacity onPress={()=>dispatch(changeTheme(!isLight))} >
+        <Ionicons name={isLight?'sunny-sharp':'moon'} color={isLight ? 'white':'black'} size={25} />
     </TouchableOpacity>  
     </View>
   );
@@ -21,7 +31,6 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container:{
-    backgroundColor:'black',
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
@@ -31,13 +40,8 @@ const styles = StyleSheet.create({
     fontSize:20,
     padding:20,
     fontWeight:'bold',
-    color:'white'
   },
-  theme:{
-    height:20,
-    width:20,
-    backgroundColor:'red',
-  }
+  
   
 })
 

@@ -3,11 +3,13 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator
 } from 'react-native';
-import { store } from './store/index'
+import { store,persistor } from './store/index'
 import { Provider } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment,incrementByAmount } from './store/slices/counterSlice'
+import {PersistGate} from 'redux-persist/es/integration/react';
 
 
 const EnteryPoint = () => {
@@ -47,7 +49,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
     <EnteryPoint />
+      </PersistGate>
     </Provider>
   );
 };
